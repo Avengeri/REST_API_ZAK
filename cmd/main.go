@@ -2,19 +2,25 @@ package main
 
 import (
 	srv "Interface_droch_3"
-	"Interface_droch_3/internal/handl"
+
+	_ "Interface_droch_3/docs"
+	_ "github.com/swaggo/files"
+	_ "github.com/swaggo/gin-swagger"
+
+	"Interface_droch_3/internal/handler"
 	"Interface_droch_3/internal/repository"
 	"Interface_droch_3/internal/repository/postgres"
 	"Interface_droch_3/internal/service"
 	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
+
 	"log"
 	"os"
 )
 
 // @title REST_API_ZAK
 // @version 0.0.1
-// @description Программа для обучения RETS API
+// @description Программа для обучения REST API
 
 // @host localhost:8080
 // @BasePath /
@@ -51,7 +57,7 @@ func main() {
 	//repo := repository.NewStorageUsersRedis(rdb)
 	repo := repository.NewStorageUsersPostgres(db)
 	services := service.NewServiceUsers(repo)
-	handlers := handl.NewHandler(services)
+	handlers := handler.NewHandler(services)
 
 	serv := new(srv.Server)
 	if err = serv.Run(viper.GetString("srv_port"), handlers.InitRoutes()); err != nil {

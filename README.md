@@ -66,6 +66,9 @@ make build # Собирает приложение в exe файл
 make run # Собирает приложение в exe файл и запускает его
 ```
 ```shell
+make swag # Создает swagger документацию
+```
+```shell
 make migrate_up # Создает миграции
 ```
 ```shell

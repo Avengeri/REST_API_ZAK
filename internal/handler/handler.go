@@ -1,8 +1,12 @@
-package handl
+package handler
 
 import (
+	_ "Interface_droch_3/internal/model"
 	"Interface_droch_3/internal/service"
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Handler struct {
@@ -15,7 +19,7 @@ func NewHandler(service *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
-
+	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	auth := router.Group("/user")
 	{
 		auth.POST("/", h.CreateUser)

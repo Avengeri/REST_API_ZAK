@@ -14,6 +14,8 @@ up:
 	docker compose up -d
 down:
 	docker compose down
+swag:
+	swag init -g ./cmd/main.go
 
 
 build:
