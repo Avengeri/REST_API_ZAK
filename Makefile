@@ -1,11 +1,9 @@
-
+include .env
+export
 start:
 	docker compose up -d
-	sleep 2
-	migrate -path ./migrations -database "postgres://postgres:qwerty@localhost:5432/postgres?sslmode=disable" up
 
 stop:
-	migrate -path ./migrations -database "postgres://postgres:qwerty@localhost:5432/postgres?sslmode=disable" down
 	docker compose down
 
 restart: stop start
@@ -27,6 +25,6 @@ make migrate:
 
 # Вместо qwerty введите действующий пароль от БД
 migrate_up:
-	migrate -path ./migrations -database 'postgres://postgres:qwerty@localhost:5432/postgres?sslmode=disable' up
+	docker run -v ./migrations:/migrations --network host migrate/migrate -path=/migrations/ -database "postgres://${DB_USER}:${POSTGRES_PASSWORD}@localhost:5432/postgres?sslmode=disable" up 1
 migrate_down:
-	migrate -path ./migrations -database 'postgres://postgres:qwerty@localhost:5432/postgres?sslmode=disable' down
+	docker run -v ./migrations:/migrations --network host migrate/migrate -path=/migrations/ -database "postgres://${DB_USER}:${POSTGRES_PASSWORD}@localhost:5432/postgres?sslmode=disable" down 1

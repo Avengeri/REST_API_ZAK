@@ -25,7 +25,7 @@ type ErrorResponse struct {
 // @Success 200 {object} UserResponse
 // @Failure 400 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse
-// @Router /user [post]
+// @Router /api/user [post]
 func (h *Handler) CreateUser(c *gin.Context) {
 	var user model.User
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -51,7 +51,7 @@ func (h *Handler) CreateUser(c *gin.Context) {
 // @Param id path int true "User ID" format(int64)
 // @Success 200 {string} string "User get successfully"
 // @Failure 500 {object} ErrorResponse
-// @Router /user/{id} [get]
+// @Router /api/user/{id} [get]
 func (h *Handler) GetUser(c *gin.Context) {
 	userIDStr := c.Param("id")
 	userID, err := strconv.ParseInt(userIDStr, 10, 64)
@@ -76,7 +76,7 @@ func (h *Handler) GetUser(c *gin.Context) {
 // @Failure 400 {object} ErrorResponse
 // @Failure 404 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse
-// @Router /user/check/{id} [get]
+// @Router /user/api/check/{id} [get]
 func (h *Handler) CheckUser(c *gin.Context) {
 	userIDStr := c.Param("id")
 	userID, err := strconv.ParseInt(userIDStr, 10, 64)
@@ -109,7 +109,7 @@ func (h *Handler) CheckUser(c *gin.Context) {
 // @Success 200 {object} UserResponse
 // @Failure 400 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse
-// @Router /user/{id} [delete]
+// @Router /api/user/{id} [delete]
 func (h *Handler) DeleteUser(c *gin.Context) {
 	userIDStr := c.Param("id")
 	userID, err := strconv.ParseInt(userIDStr, 10, 64)
@@ -134,7 +134,7 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {array} int "List of user IDs"
-// @Router /user/get_all [get]
+// @Router /api/user/get_all [get]
 func (h *Handler) GetAllUsers(c *gin.Context) {
 	// Получите список всех пользователей с помощью метода GetAllId вашего сервиса
 	userIDs := h.service.GetAllId()

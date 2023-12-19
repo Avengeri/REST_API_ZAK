@@ -26,7 +26,7 @@ info:
   title: REST_API_ZAK
   version: 0.0.1
 paths:
-  /user:
+  /api/user:
     post:
       description: Create a new user with the provided JSON data
       parameters:
@@ -52,7 +52,7 @@ paths:
       summary: Create a new user
       tags:
       - user
-  /user/{id}:
+  /api/user/{id}:
     delete:
       consumes:
       - application/json
@@ -107,7 +107,24 @@ paths:
       summary: Get a user
       tags:
       - user
-  /user/check/{id}:
+  /api/user/get_all:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all users with their IDs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of user IDs
+          schema:
+            items:
+              type: integer
+            type: array
+      summary: Get a list of all users
+      tags:
+      - user
+  /user/api/check/{id}:
     get:
       consumes:
       - application/json
@@ -139,23 +156,6 @@ paths:
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
       summary: Check if a user exists
-      tags:
-      - user
-  /user/get_all:
-    get:
-      consumes:
-      - application/json
-      description: Get a list of all users with their IDs
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: List of user IDs
-          schema:
-            items:
-              type: integer
-            type: array
-      summary: Get a list of all users
       tags:
       - user
 swagger: "2.0"
